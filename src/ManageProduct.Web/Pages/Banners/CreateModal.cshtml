@@ -1,0 +1,25 @@
+﻿@page
+@using ManageProduct.Localization
+@using ManageProduct.Web.Pages.Banners
+@using Microsoft.Extensions.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@using ManageProduct.Banners
+@model CreateModalModel
+@inject IStringLocalizer<ManageProductResource> L
+@{
+    Layout = null;
+}
+
+<form method="post" asp-page="/Banners/CreateModal">
+    <abp-modal size="ExtraLarge">
+        <abp-modal-header title="@L["NewBanner"].Value"></abp-modal-header>
+        <abp-modal-body>
+            <abp-input asp-for="Banner.Name" required />
+            <div class="form-group">
+                <label>@L["Image"]</label>
+                <input class="form-control" type="file" name="file" accept="image/*" />
+            </div>
+        </abp-modal-body>
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>

@@ -1,0 +1,34 @@
+﻿@page
+@using ManageProduct.Localization
+@using ManageProduct.Web.Pages.Products
+@using Microsoft.Extensions.Localization
+@model IndexModel
+@inject IStringLocalizer<ManageProductResource> L
+@section scripts {
+    <script type="module" src="/Pages/Products/Index.js"></script>
+
+}
+
+<link rel="stylesheet" href="~/CSS/Style.css" />
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@L["Products"]</abp-card-title>
+            </abp-column>
+            <abp-column size-md="_6" class="text-right" style="text-align:right">
+                <abp-button id="NewProductButton"
+                            text="@L["NewProduct"].Value"
+                            icon="plus"
+                            button-type="Primary" />
+
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-column size-md="_4" style="float:right">
+            <input name="Search" placeholder="@L["Search"]" class="form-control" /> @* add search input *@
+        </abp-column>
+        <abp-table striped-rows="true" id="ProductsTable"></abp-table>
+    </abp-card-body>
+</abp-card>

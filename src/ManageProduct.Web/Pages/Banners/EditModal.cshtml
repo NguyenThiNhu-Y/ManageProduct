@@ -1,0 +1,27 @@
+﻿@page
+@using ManageProduct.Localization
+@using ManageProduct.Web.Pages.Banners
+@using Microsoft.Extensions.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@using ManageProduct.Banners
+@model EditModalModel
+@inject IStringLocalizer<ManageProductResource> L
+@{
+    Layout = null;
+}
+@{ var img = Model.Banner.Image;}
+<form method="post" asp-page="/Banners/EditModal" enctype="multipart/form-data">
+    <abp-modal size="Large">
+        <abp-modal-header title="@L["UpdateBanner"].Value"></abp-modal-header>
+        <abp-modal-body>
+            <abp-input asp-for="Id"/>
+            <img src="~/ImageBanners/@img" width="500" height="200"/>
+            <abp-input asp-for="Banner.Name" required />
+            <div class="form-group">
+                <label>@L["Image"]</label>
+                <input class="form-control" type="file" name="file" accept="image/*" />
+            </div>
+        </abp-modal-body>
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>
