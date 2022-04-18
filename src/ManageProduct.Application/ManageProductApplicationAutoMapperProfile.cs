@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ManageProduct.Banners;
 using ManageProduct.Categories;
+using ManageProduct.ProductImages;
 using ManageProduct.Products;
 
 namespace ManageProduct
@@ -24,6 +25,9 @@ namespace ManageProduct
             CreateMap<Banner, BannerDto>();
             CreateMap<CreateOrUpdateBannerDto, Banner>();
             CreateMap<BannerDto, CreateOrUpdateBannerDto>();
+
+            CreateMap<ProductImage, ProductImageDto>();
+            CreateMap<CreateUpdateProductImage, ProductImage>();
 
         }
     }

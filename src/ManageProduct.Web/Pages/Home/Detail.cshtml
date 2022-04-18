@@ -251,18 +251,31 @@
                     <div class="product__details__pic">
                         <div class="product__details__pic__item">
                             <img class="product__details__pic__item--large"
-                                 src="/ImageProducts/@Model.Product.Image" alt="">
+                                 src="/ImageProducts/@Model.Product.Image" alt="" onerror="this.onerror=null;this.src='/ImageProducts/imageDefault.jpg'">
                         </div>
-                        <div class="product__details__pic__slider owl-carousel">
-                            <img data-imgbigurl="/Assets/img/product/details/product-details-2.jpg"
-                                 src="/Assets/img/product/details/thumb-1.jpg" alt="">
-                            <img data-imgbigurl="/Assets/img/product/details/product-details-3.jpg"
-                                 src="/Assets/img/product/details/thumb-2.jpg" alt="">
-                            <img data-imgbigurl="/Assets/img/product/details/product-details-5.jpg"
-                                 src="/Assets/img/product/details/thumb-3.jpg" alt="">
-                            <img data-imgbigurl="/Assets/img/product/details/product-details-4.jpg"
-                                 src="/Assets/img/product/details/thumb-4.jpg" alt="">
-                        </div>
+                        @if (Model.ProductImages.Count > 4)
+                        {
+                            <div class="product__details__pic__slider owl-carousel">
+                                @foreach (var item in Model.ProductImages)
+                                {
+                                    <img data-imgbigurl="/ImageProducts/@item.Image"
+                                         src="/ImageProducts/@item.Image" alt="">
+                                }
+
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="owl-item">
+                                @foreach (var item in Model.ProductImages)
+                                {
+                                    <img data-imgbigurl="/ImageProducts/@item.Image"
+                                         src="/ImageProducts/@item.Image" alt="">
+                                }
+
+                            </div>
+                        }
+
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
@@ -340,9 +353,18 @@
             <div class="row">
                 @foreach (var item in Model.ListProductRelated)
                 {
+                    var img = "";
+                    if(item.Image == null)
+                    {
+                        img = "/ImageProducts/imageDefault.jpg";
+                    }
+                    else
+                    {
+                        img = "/ImageProducts/" + item.Image;
+                    }
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="/ImageProducts/@item.Image" style="width:300px">
+                            <div class="product__item__pic set-bg" data-setbg="@img" style="width:300px">
                                 <ul class="product__item__pic__hover">
                                     <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                     <li><a href="#"><i class="fa fa-retweet"></i></a></li>

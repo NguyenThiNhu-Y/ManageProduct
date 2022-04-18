@@ -24,13 +24,34 @@ namespace ManageProduct.Products
             return await query.As<IMongoQueryable<Product>>().LongCountAsync(GetCancellationToken(cancellationToken));
         }
 
-        public async Task<List<Product>> GetListAsync(string filterText = null, string name = null, string sorting = null, int maxResultCount = int.MaxValue, int skipCount = 0, CancellationToken cancellationToken = default)
+        public async Task<List<Product>> GetListAsync( string filterText = null, string name = null, Guid? category = null, string sorting = null, int maxResultCount = int.MaxValue, int skipCount = 0, CancellationToken cancellationToken = default)
         {
-            var query = ApplyFilter((await GetMongoQueryableAsync(cancellationToken)), filterText, name);
-            return await query.As<IMongoQueryable<Product>>()
-                .OrderByDescending(x => x.CreationTime)
-                .PageBy<Product, IMongoQueryable<Product>>(skipCount, maxResultCount)
-                .ToListAsync(GetCancellationToken(cancellationToken));
+            var query = ApplyFilter((await GetMongoQueryableAsync(cancellationToken)), filterText, name, category);
+            if(sorting == null)
+            {
+                return await query.As<IMongoQueryable<Product>>()
+                    .OrderByDescending(x => x.CreationTime)
+                    .PageBy<Product, IMongoQueryable<Product>>(skipCount, maxResultCount)
+                    .ToListAsync(GetCancellationToken(cancellationToken));
+            }
+            else
+            {
+                if (sorting == "Name")
+                {
+                    return await query.As<IMongoQueryable<Product>>()
+                        .OrderByDescending(x => x.Name)
+                    .PageBy<Product, IMongoQueryable<Product>>(skipCount, maxResultCount)
+                    .ToListAsync(GetCancellationToken(cancellationToken));
+                }
+                else
+                {
+                    return await query.As<IMongoQueryable<Product>>()
+                        .OrderByDescending(x => x.Price)
+                    .PageBy<Product, IMongoQueryable<Product>>(skipCount, maxResultCount)
+                    .ToListAsync(GetCancellationToken(cancellationToken));
+                }
+            }
+            
         }
 
         public async Task<List<Product>> GetListProductRelatedAsync(Guid IdCategory, string filterText = null, string name = null, string sorting = null, int maxResultCount = int.MaxValue, int skipCount = 0, CancellationToken cancellationToken = default)
@@ -45,11 +66,13 @@ namespace ManageProduct.Products
 
         protected virtual IQueryable<Product> ApplyFilter(
             IQueryable<Product> query,
-            string filterText, string name = null)
+            
+            string filterText, string name = null, Guid? category = null)
         {
             var dbContext = GetDbContextAsync();
             var getDashboards = query
-                .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.Name.ToLower().Contains(filterText.ToLower()));
+                .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.Name.ToLower().Contains(filterText.ToLower()))
+                .WhereIf(category.HasValue, e => e.IdCategory == category);
             return getDashboards;
         }
     }

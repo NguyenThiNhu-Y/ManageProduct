@@ -9,5 +9,7 @@ namespace ManageProduct.Products
     {
         public string FilterText { get; set; }
         public string Name { get; set; }
+
+        public Guid? IdCategory { get; set; }
     }
 }

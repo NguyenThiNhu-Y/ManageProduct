@@ -69,6 +69,7 @@ namespace ManageProduct.Categories
         public async Task<CategoryDto> GetAsync(Guid id)
         {
             var category = await _categoryRepository.FindAsync(id);
+            var listProduct = await _productRepository.GetListAsync();
             Category categoryParent = new Category();
             if (category.IdParen != null)
             {
@@ -82,6 +83,14 @@ namespace ManageProduct.Categories
                 ctgParent = categoryParent.Name;
 
             }
+            int countProducrs = 0;
+            foreach (var item in listProduct)
+            {
+                if (item.IdCategory == category.Id)
+                    countProducrs++;
+
+            }
+            category.CountProduct = countProducrs;
             var result = ObjectMapper.Map<Category, CategoryDto>(category);
             result.CategoryParent = ctgParent;
             return result;

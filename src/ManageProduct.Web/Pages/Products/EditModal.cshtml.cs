@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using ManageProduct.Categories;
+using ManageProduct.ProductImages;
 using ManageProduct.Products;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -27,12 +28,19 @@ namespace ManageProduct.Web.Pages.Products
         public readonly IProductAppService _productAppService;
         public readonly ICategoryAppService _categoryAppService;
         private readonly IWebHostEnvironment _hostEnvironment;
+        private readonly IProductImageAppService _imageAppService;
 
-        public EditModalModel(IProductAppService productAppService, ICategoryAppService categoryAppService, IWebHostEnvironment hostEnvironment)
+        public EditModalModel(
+            IProductAppService productAppService, 
+            ICategoryAppService categoryAppService, 
+            IWebHostEnvironment hostEnvironment,
+            IProductImageAppService imageAppService)
         {
             _productAppService = productAppService;
             _categoryAppService = categoryAppService;
             _hostEnvironment = hostEnvironment;
+            _imageAppService = imageAppService;
+            
         }
         public async Task OnGetAsync()
         {
@@ -53,7 +61,8 @@ namespace ManageProduct.Web.Pages.Products
         {
             if (ModelState.IsValid)
             {
-                foreach(var file in files)
+                List<CreateUpdateProductImage> ListCreateUpdateProductImage = new List<CreateUpdateProductImage>();
+                foreach (var file in files)
                 {
                     if (file != null)
                     {
@@ -69,9 +78,17 @@ namespace ManageProduct.Web.Pages.Products
                         }
                         product.Image = filename;
 
+                        //them nhieu anh
+                        ListCreateUpdateProductImage.Add(new CreateUpdateProductImage
+                        {
+                            Image = filename,
+                            IdProduct = Id
+                        });
+                        
+
                     }
                 }
-                
+                await _imageAppService.Create(ListCreateUpdateProductImage);
                 await _productAppService.UpdateAsync(Id, product);
                 return RedirectToAction("Index", "Products");
             }

@@ -44,9 +44,14 @@ namespace ManageProduct.Products
             return true;
         }
 
-        public async Task<List<ProductDto>> GetAllProduct()
+        public async Task<List<ProductDto>> GetAllProduct(string search = null, Guid? category = null, int maxResult = int.MaxValue, int skipCount = 0, string sort = null)
         {
-            var items = await _productRepository.GetListAsync();
+            var filter = new GetProductInput
+            {
+                FilterText = search,
+                Name = search
+            };
+            var items = await _productRepository.GetListAsync(filter.FilterText, filter.Name, category,sort, maxResult, skipCount);
             return ObjectMapper.Map<List<Product>, List<ProductDto>>(items);
         }
 
@@ -74,7 +79,7 @@ namespace ManageProduct.Products
         public async Task<PagedResultDto<ProductDto>> GetListAsync(GetProductInput input)
         {
             var count = await _productRepository.GetCountAsync(input.FilterText, input.Name);
-            var items = await _productRepository.GetListAsync(input.FilterText, input.Name, input.Sorting, input.MaxResultCount, input.SkipCount);
+            var items = await _productRepository.GetListAsync(input.FilterText, input.Name,null, input.Sorting, input.MaxResultCount, input.SkipCount);
 
             var index = 1;
             List<ProductDto> result = new List<ProductDto>();

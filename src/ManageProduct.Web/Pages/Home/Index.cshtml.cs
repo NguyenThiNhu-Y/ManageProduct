@@ -19,17 +19,23 @@ namespace ManageProduct.Web.Pages.Home
         public List<LookupDto<Guid?>> Categories { get; set; }
         public BannerDto banner { get; set; }
         public List<ProductDto> Products { get; set; }
+        public ProductDto[] ArrayProduct { get; set; }
         public IndexModel(ICategoryAppService categoryAppService, IBannerAppService bannerAppService, IProductAppService productAppService)
         {
             _categoryAppService = categoryAppService;
             _bannerAppService = bannerAppService;
             _productAppService = productAppService;
         }
-        public async Task OnGet()
+        public async Task OnGet(string search)
         {
             Categories = await _categoryAppService.GetListCategoryLookupAsync();
             banner = await _bannerAppService.GetBanner();
             Products = await _productAppService.GetAllProduct();
+            ArrayProduct = Products.ToArray();
+            if (search != null)
+            {
+                RedirectToAction("shopGrid", "Home", search);
+            }
         }
     }
 }

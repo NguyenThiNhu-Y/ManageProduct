@@ -19,8 +19,6 @@ using Volo.Abp.AspNetCore.Mvc.UI;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap;
 using Volo.Abp.AspNetCore.Mvc.UI.Bundling;
 using Volo.Abp.AspNetCore.Mvc.UI.MultiTenancy;
-using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic;
-using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic.Bundling;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Autofac;
@@ -38,6 +36,7 @@ using Volo.Abp.UI;
 using Volo.Abp.UI.Navigation;
 using Volo.Abp.VirtualFileSystem;
 using Abp.AspNetCore.Mvc.UI.Theme.AdminLTE;
+using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic.Bundling;
 
 namespace ManageProduct.Web
 {
@@ -51,11 +50,11 @@ namespace ManageProduct.Web
         typeof(AbpSettingManagementWebModule),
         typeof(AbpAccountWebIdentityServerModule),
         //typeof(AbpAspNetCoreMvcUiBasicThemeModule),
-        typeof(AbpAspNetCoreMvcUiAdminLTEThemeModule),
         typeof(AbpAspNetCoreAuthenticationJwtBearerModule),
         typeof(AbpTenantManagementWebModule),
         typeof(AbpAspNetCoreSerilogModule),
-        typeof(AbpSwashbuckleModule)
+        typeof(AbpSwashbuckleModule),
+        typeof(AbpAspNetCoreMvcUiAdminLTEThemeModule)
         )]
     public class ManageProductWebModule : AbpModule
     {
@@ -70,7 +69,6 @@ namespace ManageProduct.Web
                     typeof(ManageProductApplicationModule).Assembly,
                     typeof(ManageProductApplicationContractsModule).Assembly,
                     typeof(ManageProductWebModule).Assembly
-
                 );
             });
         }
@@ -108,6 +106,7 @@ namespace ManageProduct.Web
                     bundle =>
                     {
                         bundle.AddFiles("/global-styles.css");
+                        //bundle.AddFiles("/styles/material-kit.min.css");
                     }
                 );
             });

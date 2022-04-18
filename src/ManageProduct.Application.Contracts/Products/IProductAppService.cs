@@ -25,6 +25,6 @@ namespace ManageProduct.Products
 
         Task ChangeStatus(Guid id);
 
-        Task<List<ProductDto>> GetAllProduct();
+        Task<List<ProductDto>> GetAllProduct(string search = null, Guid? category=null, int maxResult = int.MaxValue, int skipCount = 0, string sort = null);
     }
 }
