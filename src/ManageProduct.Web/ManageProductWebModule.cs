@@ -37,6 +37,7 @@ using Volo.Abp.UI.Navigation;
 using Volo.Abp.VirtualFileSystem;
 using Abp.AspNetCore.Mvc.UI.Theme.AdminLTE;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic.Bundling;
+using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic;
 
 namespace ManageProduct.Web
 {

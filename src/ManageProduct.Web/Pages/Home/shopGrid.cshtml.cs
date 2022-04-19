@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,8 +23,11 @@ namespace ManageProduct.Web.Pages.Home
         public List<ProductDto> AllProducts { get; set; }
         public ProductDto[] ArrayProduct { get; set; }
         public CategoryDto Category { get; set; }
+
         [BindProperty(SupportsGet = true)]
         public int PageIndex { get; set; }
+
+        public  Guid? IdCategoryOld { get; set; }
         public shopGridModel(ICategoryAppService categoryAppService, IBannerAppService bannerAppService, IProductAppService productAppService)
         {
             _categoryAppService = categoryAppService;
@@ -33,13 +36,13 @@ namespace ManageProduct.Web.Pages.Home
         }
         public async Task OnGetAsync( string search, Guid? category = null , int PageIndex = 1, string sort = null)
         {
+            if(IdCategoryOld != null)
+            {
+                category = IdCategoryOld;
+            }
             Categories = await _categoryAppService.GetListCategoryLookupAsync();
             banner = await _bannerAppService.GetBanner();
-            //var skipCount = 0;
-            //if(page != 0)
-            //{
-            //    skipCount = (page - 1) * 12;
-            //}
+            
             var skipCount = (PageIndex - 1) * 12;
             Products = await _productAppService.GetAllProduct(search, category, 12, skipCount, sort);
 
@@ -50,6 +53,9 @@ namespace ManageProduct.Web.Pages.Home
             {
                 Category = await _categoryAppService.GetAsync((Guid)category);
             }
+
+            //lưu lại category
+            IdCategoryOld = category;
         }
     }
 }
