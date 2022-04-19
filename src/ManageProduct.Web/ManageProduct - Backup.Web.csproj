@@ -31,6 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Abp.AspNetCore.Mvc.UI.Theme.AdminLTE" Version="0.7.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.4">
       <PrivateAssets>all</PrivateAssets>
@@ -43,8 +44,8 @@
   </ItemGroup>
 
   <ItemGroup>
-	  <ProjectReference Include="..\..\theme\Abp.AspNetCore.Mvc.UI.Theme.AdminLTE\Abp.AspNetCore.Mvc.UI.Theme.AdminLTE.csproj" />
-	  <ProjectReference Include="..\ManageProduct.Application\ManageProduct.Application.csproj" />
+    <ProjectReference Include="..\..\modules\Volo.BasicTheme\src\Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic\Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic.csproj" />
+    <ProjectReference Include="..\ManageProduct.Application\ManageProduct.Application.csproj" />
     <ProjectReference Include="..\ManageProduct.HttpApi\ManageProduct.HttpApi.csproj" />
     <ProjectReference Include="..\ManageProduct.MongoDB\ManageProduct.MongoDB.csproj" />
     <PackageReference Include="Volo.Abp.Autofac" Version="5.2.0" />

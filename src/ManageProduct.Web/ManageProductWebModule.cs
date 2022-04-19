@@ -36,7 +36,6 @@ using Volo.Abp.UI;
 using Volo.Abp.UI.Navigation;
 using Volo.Abp.VirtualFileSystem;
 using Abp.AspNetCore.Mvc.UI.Theme.AdminLTE;
-using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic.Bundling;
 
 namespace ManageProduct.Web
 {
@@ -69,6 +68,7 @@ namespace ManageProduct.Web
                     typeof(ManageProductApplicationModule).Assembly,
                     typeof(ManageProductApplicationContractsModule).Assembly,
                     typeof(ManageProductWebModule).Assembly
+                    //typeof(AbpAspNetCoreMvcUiAdminLTEThemeModule).Assembly
                 );
             });
         }
@@ -101,14 +101,14 @@ namespace ManageProduct.Web
         {
             Configure<AbpBundlingOptions>(options =>
             {
-                options.StyleBundles.Configure(
-                    BasicThemeBundles.Styles.Global,
-                    bundle =>
-                    {
-                        bundle.AddFiles("/global-styles.css");
-                        //bundle.AddFiles("/styles/material-kit.min.css");
-                    }
-                );
+                //options.StyleBundles.Configure(
+                //    AdminLTEThemeBundles.Styles.Global,
+                //    bundle =>
+                //    {
+                //        bundle.AddFiles("/global-styles.css");
+                //        //bundle.AddFiles("/styles/material-kit.min.css");
+                //    }
+                //);
             });
         }
 
@@ -144,6 +144,7 @@ namespace ManageProduct.Web
                     options.FileSets.ReplaceEmbeddedByPhysical<ManageProductWebModule>(hostingEnvironment.ContentRootPath);
 
                     // AdminLTE teması
+                    //options.FileSets.ReplaceEmbeddedByPhysical<ManageProductWebModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}..{Path.DirectorySeparatorChar}Abp.AspNetCore.Mvc.UI.Theme.AdminLTE"));
                 });
             }
         }
