@@ -5,6 +5,7 @@ using MongoDB.Driver;
 using Volo.Abp.Data;
 using Volo.Abp.MongoDB;
 using ManageProduct.ProductImages;
+using ManageProduct.Carts;
 
 namespace ManageProduct.MongoDB
 {
@@ -29,6 +30,7 @@ namespace ManageProduct.MongoDB
         public IMongoCollection<Product> Producta => Collection<Product>();
         public IMongoCollection<Banner> Banners => Collection<Banner>();
         public IMongoCollection<ProductImage> ProductImages => Collection<ProductImage>();
+        public IMongoCollection<Cart> Carts => Collection<Cart>();
 
     }
 }

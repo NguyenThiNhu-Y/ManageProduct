@@ -1796,6 +1796,34 @@ ol {
 	cursor: pointer;
 	display: inline-block;
 }
+.pro-qty-custorm {
+	width: 140px;
+	height: 50px;
+	display: inline-block;
+	position: relative;
+	text-align: center;
+	background: #f5f5f5;
+	margin-bottom: 5px;
+}
+
+	.pro-qty-custorm input {
+		height: 100%;
+		width: 100%;
+		font-size: 16px;
+		color: #6f6f6f;
+		width: 50px;
+		border: none;
+		background: #f5f5f5;
+		text-align: center;
+	}
+
+	.pro-qty-custorm .qtybtn {
+		width: 35px;
+		font-size: 16px;
+		color: #6f6f6f;
+		cursor: pointer;
+		display: inline-block;
+	}
 
 .product__details__tab {
 	padding-top: 85px;

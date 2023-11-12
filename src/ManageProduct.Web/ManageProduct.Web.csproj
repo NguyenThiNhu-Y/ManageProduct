@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <Import Project="..\..\common.props" />
 
@@ -16,9 +16,13 @@
 
   <ItemGroup>
     <Compile Remove="Logs\**" />
+    <Compile Remove="Themes\**" />
     <Content Remove="Logs\**" />
+    <Content Remove="Themes\**" />
     <EmbeddedResource Remove="Logs\**" />
+    <EmbeddedResource Remove="Themes\**" />
     <None Remove="Logs\**" />
+    <None Remove="Themes\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,7 +35,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Abp.AspNetCore.Mvc.UI.Theme.AdminLTE" Version="0.7.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.4">
       <PrivateAssets>all</PrivateAssets>
@@ -45,6 +48,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\modules\Volo.BasicTheme\src\Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic\Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic.csproj" />
+    <ProjectReference Include="..\Lsw.Abp.AspNetCore.Mvc.UI.Theme.Stisla\src\Lsw.Abp.AspNetCore.Mvc.UI.Theme.Stisla.csproj" />
     <ProjectReference Include="..\ManageProduct.Application\ManageProduct.Application.csproj" />
     <ProjectReference Include="..\ManageProduct.HttpApi\ManageProduct.HttpApi.csproj" />
     <ProjectReference Include="..\ManageProduct.MongoDB\ManageProduct.MongoDB.csproj" />

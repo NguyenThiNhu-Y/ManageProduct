@@ -58,7 +58,7 @@
                 </ul>
             </div>
             <div class="header__top__right__auth">
-                <a href="#"><i class="fa fa-user"></i> Login</a>
+                <a href="/Account/Login"><i class="fa fa-user"></i> Login</a>
             </div>
         </div>
         <nav class="humberger__menu__nav mobile-menu">
@@ -124,7 +124,7 @@
                                 </ul>
                             </div>
                             <div class="header__top__right__auth">
-                                <a href="#"><i class="fa fa-user"></i> Login</a>
+                                <a href="/Account/Login"><i class="fa fa-user"></i> Login</a>
                             </div>
                         </div>
                     </div>
@@ -263,25 +263,25 @@
                     <div class="featured__controls">
                         <ul>
                             <li class="active" data-filter="*">All</li>
-                            @*<li data-filter=".oranges">Oranges</li>
-        <li data-filter=".fresh-meat">Fresh Meat</li>
-        <li data-filter=".vegetables">Vegetables</li>
-        <li data-filter=".fastfood">Fastfood</li>*@
+                            
                             @foreach (var item in Model.Categories)
                             {
                                 var str = "a" + item.Id;
                                 <li data-filter=".@str">@item.DisplayName</li>
+                                
+
                             }
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="row featured__filter">
-                @foreach (var item in Model.Products)
+                @{ var index = 1;}
+                @foreach (var item in Model.FeaturedProduct)
                 {
                     var str = "a" + item.IdCategory;
                     var img = "";
-                    if(item.Image == null)
+                    if (item.Image == null)
                     {
                         img = "/ImageProducts/imageDefault.jpg";
                     }
@@ -289,23 +289,57 @@
                     {
                         img = "/ImageProducts/" + item.Image;
                     }
-                <div class="col-lg-3 col-md-4 col-sm-6 mix @str">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="@img">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="/Home/Detail?Id=@item.Id">@item.Name</a></h6>
-                            <h5>$30.00</h5>
+
+                    var display = "";
+                    if (index > 12)
+                    {
+                        display = "display:none";
+                    }
+                    index++;
+                    <div class="col-lg-3 col-md-4 col-sm-6 mix @str" style=@display>
+                        <div class="featured__item">
+                            <div class="featured__item__pic set-bg" data-setbg="@img">
+                                <ul class="featured__item__pic__hover">
+                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                    <li>
+                                        <form method="post" asp-page="/Home/Index">
+                                            <input type="text" hidden value="@item.Id" name="idProduct"  />
+                                            <button type="submit" onclick="AddCart()"><i class="fa fa-shopping-cart"></i></button>
+                                        </form>
+                                        <!--<script>
+                                            function AddCart() {
+                                                var IdProduct = document.getElementById("idProduct").value;
+                                                var data = {
+                                                    "idProduct": IdProduct,
+                                                    "name": "",
+                                                    "price": 0,
+                                                    "quantity": 0
+                                                };
+                                                $.ajax({
+                                                    type: 'POST',
+                                                    dataType: 'application/json',
+                                                    url: 'https://localhost:44344/api/app/cart/cart-create',
+                                                    data: data,
+                                                    success: function (data) {
+                                                        alert(IdProduct)
+                                                    }
+                                                });-->
+                                                @*"https://localhost:44344/api/app/cart"*@
+
+                                            <!--}
+                                        </script>-->
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="featured__item__text">
+                                <h6><a href="/Home/Detail?Id=@item.Id">@item.Name</a></h6>
+                                <h5>$30.00</h5>
+                            </div>
                         </div>
                     </div>
-                </div>
                 }
-                
+
             </div>
         </div>
     </section>
@@ -316,7 +350,7 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="banner__pic">
-                        <img src="/ImageBanners/@Model.banner" alt="">
+                        <img src="/Assets/img/banner/banner-1.jpg" alt="">
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">

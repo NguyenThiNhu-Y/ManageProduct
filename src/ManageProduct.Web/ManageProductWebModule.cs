@@ -35,9 +35,10 @@ using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.UI;
 using Volo.Abp.UI.Navigation;
 using Volo.Abp.VirtualFileSystem;
-using Abp.AspNetCore.Mvc.UI.Theme.AdminLTE;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic.Bundling;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic;
+using Lsw.Abp.AspNetCore.Mvc.UI.Theme.Stisla;
+using Lsw.Abp.AspNetCore.Mvc.UI.Theme.Stisla.Bundling;
 
 namespace ManageProduct.Web
 {
@@ -55,7 +56,8 @@ namespace ManageProduct.Web
         typeof(AbpTenantManagementWebModule),
         typeof(AbpAspNetCoreSerilogModule),
         typeof(AbpSwashbuckleModule),
-        typeof(AbpAspNetCoreMvcUiAdminLTEThemeModule)
+        //typeof(AbpAspNetCoreMvcUiAdminLTEThemeModule)
+        typeof(AbpAspNetCoreMvcUiStislaThemeModule)
         )]
     public class ManageProductWebModule : AbpModule
     {
@@ -69,7 +71,8 @@ namespace ManageProduct.Web
                     typeof(ManageProductDomainSharedModule).Assembly,
                     typeof(ManageProductApplicationModule).Assembly,
                     typeof(ManageProductApplicationContractsModule).Assembly,
-                    typeof(ManageProductWebModule).Assembly
+                    typeof(ManageProductWebModule).Assembly,
+                    typeof(AbpAspNetCoreMvcUiStislaThemeModule).Assembly
                 );
             });
         }
@@ -102,14 +105,14 @@ namespace ManageProduct.Web
         {
             Configure<AbpBundlingOptions>(options =>
             {
-                options.StyleBundles.Configure(
-                    BasicThemeBundles.Styles.Global,
-                    bundle =>
-                    {
-                        bundle.AddFiles("/global-styles.css");
-                        //bundle.AddFiles("/styles/material-kit.min.css");
-                    }
-                );
+                //options.StyleBundles.Configure(
+                //    StislaThemeBundles.Styles.Global,
+                //    bundle =>
+                //    {
+                //        //bundle.AddFiles("/global-styles.css");
+                //        bundle.AddFiles("/themes/stisla/assets/css/style.css");
+                //    }
+                //);
             });
         }
 
@@ -142,9 +145,13 @@ namespace ManageProduct.Web
                     options.FileSets.ReplaceEmbeddedByPhysical<ManageProductDomainModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}ManageProduct.Domain"));
                     options.FileSets.ReplaceEmbeddedByPhysical<ManageProductApplicationContractsModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}ManageProduct.Application.Contracts"));
                     options.FileSets.ReplaceEmbeddedByPhysical<ManageProductApplicationModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}ManageProduct.Application"));
+                    //options.FileSets.ReplaceEmbeddedByPhysical<AbpAspNetCoreMvcUiStislaThemeModule>(@"D:\SDC\ProductMongoDb\src\Lsw.Abp.AspNetCore.Mvc.UI.Theme.Stisla\src");
+                    //options.FileSets.ReplaceEmbeddedByPhysical<AbpAspNetCoreMvcUiStislaThemeModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}Lsw.Abp.AspNetCore.Mvc.UI.Theme.Stisla"));
                     options.FileSets.ReplaceEmbeddedByPhysical<ManageProductWebModule>(hostingEnvironment.ContentRootPath);
 
                     // AdminLTE teması
+
+
                 });
             }
         }

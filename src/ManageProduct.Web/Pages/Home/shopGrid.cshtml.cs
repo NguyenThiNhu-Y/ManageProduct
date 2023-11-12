@@ -27,7 +27,12 @@ namespace ManageProduct.Web.Pages.Home
         [BindProperty(SupportsGet = true)]
         public int PageIndex { get; set; }
 
+        [BindProperty(SupportsGet =true)]
+        public string search { get; set; }
+
         public  Guid? IdCategoryOld { get; set; }
+
+        public int CountProductFind { get; set; }
         public shopGridModel(ICategoryAppService categoryAppService, IBannerAppService bannerAppService, IProductAppService productAppService)
         {
             _categoryAppService = categoryAppService;
@@ -46,6 +51,9 @@ namespace ManageProduct.Web.Pages.Home
             var skipCount = (PageIndex - 1) * 12;
             Products = await _productAppService.GetAllProduct(search, category, 12, skipCount, sort);
 
+            //lấy số lượng sản phẩm tìm thấy
+            var ProductsFind = await _productAppService.GetAllProduct(search, category);
+            CountProductFind = ProductsFind.Count() ;
             AllProducts = await _productAppService.GetAllProduct();
             ArrayProduct = AllProducts.ToArray();
 

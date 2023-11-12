@@ -44,8 +44,14 @@ namespace ManageProduct.Web.Menus
                 l["Menu:Banner"],
                 url:"/Banners"
             );
+            var Cart = new ApplicationMenuItem(
+                "Cart",
+                l["Menu:Cart"],
+                url:"/Carts");
+
             context.Menu.AddItem(ManageProduct);
             context.Menu.AddItem(Banner);
+            context.Menu.AddItem(Cart);
 
             ManageProduct
                     .AddItem(
